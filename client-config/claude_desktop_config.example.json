@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "mcp-dev-tooling": {
+      "command": "java",
+      "args": [
+        "-jar",
+        "/ABSOLUTE/PATH/TO/MCP-Developer-Tooling/target/mcp-dev-tooling-0.1.0.jar"
+      ],
+      "env": {
+        "MCP_FS_ROOTS": "/ABSOLUTE/PATH/TO/projects/alpha,/ABSOLUTE/PATH/TO/projects/beta",
+        "MCP_ROLE": "DEVELOPER"
+      }
+    }
+  }
+}

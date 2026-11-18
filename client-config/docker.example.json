@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "mcp-dev-tooling": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "-v",
+        "/ABSOLUTE/PATH/TO/projects:/workspace:ro",
+        "-v",
+        "mcp-dev-tooling-data:/home/app/.mcp-dev-tooling",
+        "-e",
+        "MCP_FS_ROOTS=/workspace",
+        "-e",
+        "MCP_ROLE=DEVELOPER",
+        "mcp-dev-tooling:0.1.0"
+      ]
+    }
+  }
+}

@@ -1,0 +1,41 @@
+# ============================================================================
+# Streamable HTTP transport (Phase 6, optional).
+#
+#   java -jar mcp-dev-tooling.jar --spring.profiles.active=http
+#
+# Only for clients that speak Streamable HTTP (Cursor remote MCP, curl probes,
+# load generators). Claude Desktop uses stdio, which stays the default profile.
+#
+# SECURITY: this profile is DEV-ONLY and UNAUTHENTICATED. It binds to loopback
+# so only local processes can reach it. Do not expose it on 0.0.0.0 or behind a
+# proxy without adding authentication — the guard chain still enforces role
+# permissions and audit, but the caller identity is the process-wide MCP_ROLE,
+# not a per-request credential.
+#
+# Cancellation caveat: MCP notifications/cancelled is only intercepted by the
+# hardened stdio transport. Over HTTP a client cancel is a no-op; the per-call
+# deadline (mcp.executor.call-timeout-millis) still bounds every call.
+# ============================================================================
+spring:
+  main:
+    web-application-type: servlet
+  ai:
+    mcp:
+      server:
+        # No stdin/stdout framing in web mode.
+        stdio: false
+        # Streamable HTTP (not the deprecated SSE transport).
+        protocol: STREAMABLE
+        streamable-http:
+          mcp-endpoint: /mcp
+          # Empty/zero disables keep-alive pings on idle streams (default SDK behaviour).
+          keep-alive-interval: 0s
+
+server:
+  address: 127.0.0.1
+  port: ${MCP_HTTP_PORT:8080}
+  shutdown: graceful
+
+mcp:
+  transport:
+    mode: http

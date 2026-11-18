@@ -1,0 +1,9 @@
+target/
+.git/
+.github/
+bench/results/
+client-config/
+TESTING.md
+BENCHMARKS.md
+README.md
+*.log

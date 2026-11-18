@@ -1,0 +1,122 @@
+{
+  "label": "reference-run-2",
+  "timestampUtc": "20261118T111520Z",
+  "jar": "mcp-dev-tooling-0.1.0.jar",
+  "machine": {
+    "cpu": "12th Gen Intel(R) Core(TM) i5-1235U",
+    "cores": 12,
+    "memoryGb": 6.9,
+    "os": "Linux-7.0.0-38-generic-x86_64-with-glibc2.34",
+    "kernel": "7.0.0-38-generic",
+    "java": "openjdk version \"21.0.12.1\" 2026-08-18",
+    "python": "3.8.18"
+  },
+  "workload": {
+    "warmupCalls": 500,
+    "serialCalls": 2000,
+    "concurrentCalls": 10000,
+    "concurrency": 64,
+    "backpressureOffered": 200,
+    "rateLimiter": "raised to 1e6 (measuring the funnel, not the limiter)"
+  },
+  "scenarios": {
+    "serial": {
+      "calls": 2000,
+      "errors": 0,
+      "wallSeconds": 2.443,
+      "callsPerSecond": 818.8,
+      "p50ms": 1.2,
+      "p95ms": 2.05,
+      "p99ms": 2.53,
+      "maxMs": 9.74,
+      "meanMs": 1.22,
+      "audit": {
+        "lines": 2500,
+        "outcomes": {
+          "OK": 2500
+        }
+      },
+      "process": {
+        "rssKb": 208840,
+        "threads": 37,
+        "fds": 9
+      }
+    },
+    "concurrent": {
+      "calls": 10000,
+      "errors": 0,
+      "wallSeconds": 2.478,
+      "callsPerSecond": 4035.9,
+      "p50ms": 13.15,
+      "p95ms": 19.99,
+      "p99ms": 46.44,
+      "maxMs": 73.46,
+      "meanMs": 13.26,
+      "concurrency": 64,
+      "audit": {
+        "lines": 10500,
+        "outcomes": {
+          "OK": 10500
+        }
+      },
+      "process": {
+        "idle": {
+          "rssKb": 195428,
+          "threads": 37,
+          "fds": 9
+        },
+        "peak": {
+          "rssKb": 228748,
+          "threads": 45,
+          "fds": 10
+        },
+        "after": {
+          "rssKb": 230024,
+          "threads": 45,
+          "fds": 9
+        }
+      }
+    },
+    "backpressure": {
+      "configuredMaxConcurrent": 1,
+      "queueWaitMs": 50,
+      "offered": 200,
+      "shedBusy": 199,
+      "served": 1,
+      "errorResults": 199,
+      "wallSeconds": 0.655,
+      "audit": {
+        "lines": 200,
+        "outcomes": {
+          "DENIED_BACKPRESSURE": 199,
+          "OK": 1
+        }
+      }
+    },
+    "cancel": {
+      "cancelAfterMs": 500.6,
+      "responseAfterCancelMs": 38.4,
+      "totalMs": 538.9,
+      "isError": true,
+      "text": "tool 'run_query' was cancelled by the client",
+      "audit": {
+        "lines": 1,
+        "outcomes": {
+          "CANCELLED": 1
+        }
+      }
+    },
+    "timeout": {
+      "configuredTimeoutMs": 2000,
+      "responseMs": 2059.1,
+      "isError": true,
+      "text": "tool 'run_query' timed out after 2000ms",
+      "audit": {
+        "lines": 1,
+        "outcomes": {
+          "TIMEOUT": 1
+        }
+      }
+    }
+  }
+}
